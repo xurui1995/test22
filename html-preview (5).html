@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>竞争格局</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; overflow: hidden; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            /* keep top padding for title consistency, reduce bottom padding slightly to fix overflow */
+            padding: 60px 80px 36px 80px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 8px; /* reduced vertical gaps to save height */
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            color: #00E5FF;
+            font-size: 18px;
+        }
+
+        /* Main Content */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px; /* reduced horizontal gap */
+        }
+
+        /* Left Column: Global Landscape */
+        .landscape-section {
+            display: flex;
+            flex-direction: column;
+            gap: 18px; /* reduced spacing between region blocks */
+        }
+        
+        .region-block {
+            border-left: 2px solid #333;
+            padding-left: 20px;
+        }
+        .region-block.china {
+            border-left-color: #00E5FF;
+        }
+        
+        .region-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .region-block.china .region-title {
+            color: #00E5FF;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* more columns to reduce vertical rows */
+            gap: 8px;
+        }
+        .company-item {
+            background: rgba(255,255,255,0.05);
+            padding: 8px 12px; /* reduced inner padding but font-size unchanged */
+            font-size: 14px;
+            color: #E0E0E0;
+            display: flex;
+            align-items: center;
+        }
+        .company-item::before {
+            content: "•";
+            color: #555;
+            margin-right: 10px;
+            font-size: 20px;
+            line-height: 0;
+        }
+        .region-block.china .company-item::before {
+            color: #00E5FF;
+        }
+
+        /* Right Column: Market Share */
+        .chart-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .chart-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            color: #E0E0E0;
+            margin-bottom: 12px; /* reduced */
+            width: 100%;
+            text-align: left;
+            border-bottom: 1px solid #333;
+            padding-bottom: 6px;
+        }
+        
+        .donut-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+        
+        .legend {
+            margin-top: 12px; /* reduced */
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .legend-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #CCC;
+            display: flex;
+            align-items: center;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            margin-right: 8px;
+        }
+
+        /* Bottom Insight */
+        .insight-banner {
+            background: rgba(124, 77, 255, 0.1);
+            border: 1px solid #7C4DFF;
+            padding: 14px; /* reduced */
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .insight-icon {
+            font-size: 24px;
+            color: #7C4DFF;
+        }
+        .insight-text {
+            font-size: 16px;
+            color: #E0E0E0;
+            line-height: 1.4;
+        }
+        .insight-text strong {
+            color: #FFF;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #222;
+            padding-top: 12px; /* reduced */
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <header>
+            <div class="subtitle">COMPETITIVE LANDSCAPE</div>
+            <h2>竞争格局从"百模大战"走向"集群式崛起"</h2>
+        </header>
+
+        <div class="content-grid">
+            <!-- Left: Global Landscape -->
+            <div class="landscape-section">
+                <div class="region-block">
+                    <div class="region-title">US TIER 1 PLAYERS</div>
+                    <div class="company-grid">
+                        <div class="company-item">OpenAI (GPT)</div>
+                        <div class="company-item">Google (Gemini)</div>
+                        <div class="company-item">Anthropic (Claude)</div>
+                        <div class="company-item">Meta (Llama)</div>
+                    </div>
+                </div>
+
+                <div class="region-block china">
+                    <div class="region-title">CHINA CLUSTER (RISING)</div>
+                    <div class="company-grid">
+                        <div class="company-item">Alibaba (Qwen)</div>
+                        <div class="company-item">ByteDance (Doubao)</div>
+                        <div class="company-item">DeepSeek</div>
+                        <div class="company-item">Baidu (Ernie)</div>
+                        <div class="company-item">Zhipu (GLM)</div>
+                        <div class="company-item">MiniMax</div>
+                        <div class="company-item">Moonshot (Kimi)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Market Share Chart -->
+            <div class="chart-section">
+                <div class="chart-title">CHINA B-SIDE MARKET SHARE (2025 H2)</div>
+                <div class="donut-container" id="shareChart"></div>
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-color" style="background:#00E5FF"></div>Alibaba Qwen (32.1%)</div>
+                    <div class="legend-item"><div class="legend-color" style="background:#7C4DFF"></div>ByteDance (21.3%)</div>
+                    <div class="legend-item"><div class="legend-color" style="background:#FFFFFF"></div>DeepSeek (18.4%)</div>
+                    <div class="legend-item"><div class="legend-color" style="background:#333333"></div>Others (28.2%)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="insight-banner">
+            <div class="insight-icon">!</div>
+            <div class="insight-text">
+                <strong>GLOBAL IMPACT:</strong> 硅谷AI初创公司路演中，<strong>80%</strong> 使用中国开源模型。国产开源大模型全球累计下载量已突破 <strong>100亿次</strong>。
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>DATA SOURCE: FROST &amp; SULLIVAN, A16Z</span>
+            <span>2026 MARKET TRENDS REPORT</span>
+        </div>
+    </div>
+
+    <script>
+        // Donut Chart Data
+        const data = [
+            { label: 'Qwen', value: 32.1, color: '#00E5FF' },
+            { label: 'Doubao', value: 21.3, color: '#7C4DFF' },
+            { label: 'DeepSeek', value: 18.4, color: '#FFFFFF' },
+            { label: 'Others', value: 28.2, color: '#333333' }
+        ];
+
+        const width = 300;
+        const height = 300;
+        const radius = Math.min(width, height) / 2;
+
+        const svg = d3.select("#shareChart")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", `translate(${width / 2},${height / 2})`);
+
+        const pie = d3.pie()
+            .value(d => d.value)
+            .sort(null);
+
+        const arc = d3.arc()
+            .innerRadius(radius * 0.6)
+            .outerRadius(radius);
+
+        svg.selectAll('path')
+            .data(pie(data))
+            .enter()
+            .append('path')
+            .attr('d', arc)
+            .attr('fill', d => d.data.color)
+            .attr('stroke', '#121212')
+            .style('stroke-width', '2px');
+
+        // Center Text
+        svg.append("text")
+            .attr("text-anchor", "middle")
+            .attr("dy", "-0.5em")
+            .style("fill", "#888")
+            .style("font-family", "JetBrains Mono")
+            .style("font-size", "12px")
+            .text("TOP 3 SHARE");
+
+        svg.append("text")
+            .attr("text-anchor", "middle")
+            .attr("dy", "1em")
+            .style("fill", "#FFF")
+            .style("font-family", "Inter")
+            .style("font-weight", "700")
+            .style("font-size", "24px")
+            .text("71.8%");
+
+    </script>
+</body>
+</html>

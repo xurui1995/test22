@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国模型成本优势</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; overflow: hidden; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px; /* keep as required */
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            padding: 60px 80px 20px; /* keep top padding for title, reduce bottom */
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* reduced gap */
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            color: #00E5FF;
+            font-size: 18px;
+        }
+
+        /* Main Content Grid */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px; /* smaller column gap */
+            flex: 1;
+        }
+
+        /* Left Column: Price Comparison */
+        .price-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .chart-title {
+            font-family: 'JetBrains Mono', monospace;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 10px; /* reduced */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .comparison-group {
+            margin-bottom: 20px; /* reduced */
+        }
+        
+        .group-label {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px; /* slightly reduced */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .group-label span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #00E5FF;
+            background: rgba(0, 229, 255, 0.1);
+            padding: 4px 8px;
+        }
+
+        .bar-container {
+            display: grid;
+            grid-template-columns: 120px 1fr 80px;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px; /* reduced */
+        }
+
+        .model-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #CCC;
+            text-align: right;
+        }
+
+        .bar-track {
+            background: #222;
+            height: 32px;
+            width: 100%;
+            position: relative;
+        }
+
+        .bar {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: #000;
+            white-space: nowrap;
+        }
+
+        .bar.us {
+            background: #7C4DFF;
+            width: 100%; /* Represents $25 */
+            color: #FFF;
+        }
+
+        .bar.cn {
+            background: #00E5FF;
+            width: 4.4%; /* Represents $1.1 (1.1/25 = 4.4%) */
+            color: #000;
+            overflow: visible;
+        }
+        .bar.cn .value-outside {
+            position: absolute;
+            left: 100%;
+            margin-left: 10px;
+            color: #00E5FF;
+        }
+
+        .bar.us-input { width: 100%; background: #7C4DFF; color: #FFF; } /* $5 */
+        .bar.cn-input { width: 6%; background: #00E5FF; color: #00E5FF; } /* $0.3 (0.3/5 = 6%) */
+
+        .multiplier-tag {
+            color: #FFF;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        /* Right Column: Tech Explanation */
+        .tech-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #333;
+            padding: 20px; /* reduced */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tech-header {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px; /* reduced */
+            color: #FFF;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px; /* reduced */
+        }
+
+        .tech-desc {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #CCC;
+            margin-bottom: 20px; /* reduced */
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px; /* reduced */
+            margin-top: 0; /* removed auto push */
+        }
+
+        .metric-card {
+            background: #1A1A1A;
+            padding: 12px; /* reduced */
+            border-left: 4px solid #00E5FF;
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: #FFF;
+            margin-bottom: 5px;
+        }
+        .metric-label {
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Footer */
+        .footer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #222;
+            padding-top: 10px; /* reduced */
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px; /* replaced auto with small gap */
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <header>
+            <div class="subtitle">COST ANALYSIS</div>
+            <h2>中国模型成本仅为美国的1/10至1/20，价格战重塑全球格局</h2>
+        </header>
+
+        <div class="content-wrapper">
+            <!-- Left: Price Comparison -->
+            <div class="price-section">
+                <div class="chart-title">API PRICE COMPARISON (USD / 1M TOKENS)</div>
+
+                <!-- Output Price Group -->
+                <div class="comparison-group">
+                    <div class="group-label">Output Price <span>~22.7x Difference</span></div>
+                    
+                    <div class="bar-container">
+                        <div class="model-name">Claude Opus</div>
+                        <div class="bar-track">
+                            <div class="bar us">$25.00</div>
+                        </div>
+                        <div class="multiplier-tag">1x</div>
+                    </div>
+
+                    <div class="bar-container">
+                        <div class="model-name">MiniMax M2.5</div>
+                        <div class="bar-track">
+                            <div class="bar cn" style="width: 4.4%;">
+                                <span class="value-outside">$1.10</span>
+                            </div>
+                        </div>
+                        <div class="multiplier-tag" style="color: #00E5FF">1/22</div>
+                    </div>
+                </div>
+
+                <!-- Input Price Group -->
+                <div class="comparison-group">
+                    <div class="group-label">Input Price <span>~16.7x Difference</span></div>
+                    
+                    <div class="bar-container">
+                        <div class="model-name">Claude Opus</div>
+                        <div class="bar-track">
+                            <div class="bar us-input">$5.00</div>
+                        </div>
+                        <div class="multiplier-tag">1x</div>
+                    </div>
+
+                    <div class="bar-container">
+                        <div class="model-name">MiniMax M2.5</div>
+                        <div class="bar-track">
+                            <div class="bar cn-input" style="width: 6%;">
+                                <span class="value-outside">$0.30</span>
+                            </div>
+                        </div>
+                        <div class="multiplier-tag" style="color: #00E5FF">1/16</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Tech Explanation -->
+            <div class="tech-section">
+                <div class="tech-header">
+                    <i class="fas fa-microchip" style="color: #00E5FF; margin-right: 10px;"></i>
+                    核心降本技术：MoE架构
+                </div>
+                <div class="tech-desc">
+                    <strong>混合专家架构 (Mixture-of-Experts)</strong><br><br>
+                    不同于传统稠密模型的"全体动员"，MoE架构实现了"按需激活"。针对每个Token，仅激活网络中一小部分最相关的专家模块参与计算。
+                </div>
+
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">-60%</div>
+                        <div class="metric-label">推理显存占用 (VRAM Usage)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">+19x</div>
+                        <div class="metric-label">推理吞吐量 (Throughput)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>DATA SOURCE: OPENROUTER, FROST & SULLIVAN</span>
+            <span>2026 MARKET TRENDS REPORT</span>
+        </div>
+    </div>
+</body>
+</html>

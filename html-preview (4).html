@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国AI调用量超越美国</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; overflow: hidden; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px; /* keep as required */
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            padding: 60px 80px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 20px; /* reduced from 30 */
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            color: #00E5FF;
+            font-size: 18px;
+        }
+
+        /* Content Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px; /* column gap */
+            align-items: start;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            width: 100%;
+            height: 320px; /* reduced from 420 to fit total <720 */
+            position: relative;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid #222;
+            padding: 12px; /* reduced inner padding */
+        }
+
+        /* Stats Panel */
+        .stats-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* smaller vertical gap */
+        }
+
+        .stats-top { display: flex; gap: 12px; }
+
+        .stat-card {
+            border-left: 4px solid #00E5FF;
+            padding: 12px; /* reduced padding to save height */
+            background: transparent;
+            flex: 1;
+        }
+        .stat-card.secondary {
+            border-left-color: #7C4DFF;
+        }
+
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 48px; /* must not change */
+            font-weight: 700;
+            color: #FFF;
+            line-height: 1;
+        }
+        .stat-value span {
+            font-size: 24px;
+            color: #888;
+        }
+        .stat-desc {
+            font-size: 14px;
+            color: #CCC;
+            margin-top: 6px;
+        }
+
+        .top-models-list {
+            margin-top: 6px;
+        }
+        .list-header {
+            font-family: 'JetBrains Mono', monospace;
+            color: #00E5FF;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 6px;
+        }
+        .model-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 15px;
+            color: #E0E0E0;
+        }
+        .model-rank {
+            color: #7C4DFF;
+            font-weight: 700;
+            margin-right: 10px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Footer */
+        .footer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #222;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* D3 Styles */
+        .line { fill: none; stroke-width: 4px; }
+        .line.china { stroke: #00E5FF; filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.5)); }
+        .line.us { stroke: #555; stroke-dasharray: 5,5; }
+        .axis text { fill: #888; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+        .axis path, .axis line { stroke: #333; }
+        .grid line { stroke: #222; stroke-dasharray: 2; }
+        .annotation { font-family: 'JetBrains Mono', monospace; font-size: 12px; fill: #FFF; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <header>
+            <div class="subtitle">MARKET MILESTONE</div>
+            <h2>中国AI调用量2026年2月首超美国，标志性拐点已至</h2>
+        </header>
+
+        <div class="content-grid">
+            <div class="chart-container" id="usageChart">
+                <!-- D3 Chart will be rendered here -->
+            </div>
+            
+            <div class="stats-panel">
+                <div class="stats-top">
+                    <div class="stat-card">
+                        <div class="stat-label">China Weekly Tokens (Feb '26)</div>
+                        <div class="stat-value">5.16 <span>Trillion</span></div>
+                        <div class="stat-desc">三周大涨127%，创历史新高</div>
+                    </div>
+
+                    <div class="stat-card secondary">
+                        <div class="stat-label">US Weekly Tokens (Feb '26)</div>
+                        <div class="stat-value">2.94 <span>Trillion</span></div>
+                        <div class="stat-desc">增速放缓，被中国反超</div>
+                    </div>
+                </div>
+
+                <div class="top-models-list">
+                    <div class="list-header">GLOBAL TOP 3 MODELS (FEB '26')</div>
+                    <div class="model-item"><span class="model-rank">01</span> MiniMax M2.5 (CN)</div>
+                    <div class="model-item"><span class="model-rank">02</span> Kimi K2.5 (CN)</div>
+                    <div class="model-item"><span class="model-rank">03</span> GLM-5 (CN)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>DATA SOURCE: OPENROUTER, J.P. MORGAN</span>
+            <span>2026 MARKET TRENDS REPORT</span>
+        </div>
+    </div>
+
+    <script>
+        // Simulated Data based on the report
+        const data = [
+            { date: new Date(2025, 2, 1), china: 0.2, us: 1.0 },
+            { date: new Date(2025, 5, 1), china: 0.5, us: 1.5 },
+            { date: new Date(2025, 8, 1), china: 1.2, us: 2.0 },
+            { date: new Date(2025, 11, 1), china: 2.5, us: 2.5 },
+            { date: new Date(2026, 0, 1), china: 3.2, us: 2.8 },
+            { date: new Date(2026, 1, 15), china: 4.12, us: 2.94 },
+            { date: new Date(2026, 1, 22), china: 5.16, us: 2.7 }
+        ];
+
+        const margin = { top: 24, right: 24, bottom: 32, left: 48 };
+        const svgOuterWidth = 780;
+        const svgOuterHeight = 280; // reduced to fit chart-container height 320 (with margins and padding)
+        const width = svgOuterWidth - margin.left - margin.right;
+        const height = svgOuterHeight - margin.top - margin.bottom;
+
+        const svg = d3.select("#usageChart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Scales
+        const x = d3.scaleTime()
+            .domain(d3.extent(data, d => d.date))
+            .range([0, width]);
+
+        const y = d3.scaleLinear()
+            .domain([0, 6])
+            .range([height, 0]);
+
+        // Gridlines
+        svg.append("g")
+            .attr("class", "grid")
+            .call(d3.axisLeft(y).ticks(5).tickSize(-width).tickFormat(""));
+
+        // Axes
+        svg.append("g")
+            .attr("transform", `translate(0,${height})`)
+            .attr("class", "axis")
+            .call(d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat("%b '%y")));
+
+        svg.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y).ticks(5).tickFormat(d => d + "T"));
+
+        // Lines
+        const lineChina = d3.line()
+            .x(d => x(d.date))
+            .y(d => y(d.china))
+            .curve(d3.curveMonotoneX);
+
+        const lineUS = d3.line()
+            .x(d => x(d.date))
+            .y(d => y(d.us))
+            .curve(d3.curveMonotoneX);
+
+        svg.append("path")
+            .datum(data)
+            .attr("class", "line us")
+            .attr("d", lineUS);
+
+        svg.append("path")
+            .datum(data)
+            .attr("class", "line china")
+            .attr("d", lineChina);
+
+        // Crossover Point Marker
+        const crossoverData = data[5];
+        svg.append("circle")
+            .attr("cx", x(crossoverData.date))
+            .attr("cy", y(crossoverData.china))
+            .attr("r", 6)
+            .attr("fill", "#00E5FF")
+            .attr("stroke", "#FFF")
+            .attr("stroke-width", 2);
+
+        // Labels
+        svg.append("text")
+            .attr("x", width - 10)
+            .attr("y", y(5.16) - 10)
+            .attr("class", "annotation")
+            .attr("text-anchor", "end")
+            .style("fill", "#00E5FF")
+            .text("China: 5.16T");
+
+        svg.append("text")
+            .attr("x", width - 10)
+            .attr("y", y(2.7) + 20)
+            .attr("class", "annotation")
+            .attr("text-anchor", "end")
+            .style("fill", "#888")
+            .text("USA: 2.70T");
+
+    </script>
+</body>
+</html>

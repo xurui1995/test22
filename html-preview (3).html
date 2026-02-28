@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全球LLM市场规模趋势</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; overflow: hidden; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            padding: 60px 80px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 20px; /* reduced gap to save vertical space */
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            color: #00E5FF;
+            font-size: 18px;
+        }
+
+        /* Content Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 60px;
+            align-items: start; /* align to start to reduce extra vertical stretching */
+        }
+
+        /* Chart Container */
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+        }
+        
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            margin-bottom: 12px; /* reduced margin */
+        }
+        .data-table th {
+            text-align: left;
+            color: #888;
+            border-bottom: 1px solid #333;
+            padding: 6px 0; /* reduced padding */
+            font-weight: 400;
+        }
+        .data-table td {
+            padding: 8px 0; /* reduced padding */
+            border-bottom: 1px solid #222;
+            color: #E0E0E0;
+        }
+        .data-table tr:last-child td {
+            border-bottom: none;
+            color: #00E5FF;
+            font-weight: 700;
+        }
+
+        /* Insights List */
+        .insights {
+            border-left: 2px solid #7C4DFF;
+            padding-left: 12px; /* slightly reduced */
+        }
+        .insight-item {
+            margin-bottom: 8px; /* reduced spacing */
+            font-size: 16px;
+            line-height: 1.4; /* tighten line-height a bit */
+            color: #CCC;
+        }
+        .insight-item strong {
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #222;
+            padding-top: 12px; /* reduced footer top padding */
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* D3 Chart Styles */
+        .bar { fill: #333; transition: fill 0.3s; }
+        .bar:hover { fill: #444; }
+        .bar.highlight { fill: #00E5FF; }
+        .axis text { fill: #888; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+        .axis path, .axis line { stroke: #333; }
+        .grid line { stroke: #222; stroke-dasharray: 2; }
+        .label { fill: #FFF; font-family: 'JetBrains Mono', monospace; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <header>
+            <div class="subtitle">MARKET OVERVIEW</div>
+            <h2>全球LLM市场规模突破77亿美元，2030年将达千亿级别</h2>
+        </header>
+
+        <div class="content-grid">
+            <div class="chart-container" id="marketChart"></div>
+            
+            <div class="info-panel">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>YEAR</th>
+                            <th>MARKET SIZE (USD)</th>
+                            <th>GROWTH</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024</td>
+                            <td>$5.62 Billion</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>2025</td>
+                            <td>$7.77 Billion</td>
+                            <td>38.3%</td>
+                        </tr>
+                        <tr>
+                            <td>2026 (Est)</td>
+                            <td>$10.97 Billion</td>
+                            <td>41.2%</td>
+                        </tr>
+                        <tr>
+                            <td>2030 (Proj)</td>
+                            <td>$149.89 Billion</td>
+                            <td>CAGR 36.9%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="insights">
+                    <div class="insight-item">
+                        <strong>爆发式增长：</strong> 预计2030年市场规模将接近1500亿美元，年复合增长率(CAGR)保持在35%以上的高位。
+                    </div>
+                    <div class="insight-item">
+                        <strong>中国动力：</strong> 2025年中国AI核心产业规模预计突破1.2万亿元，同比增长近30%，成为全球重要增长极。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>DATA SOURCE: PRECEDENCE RESEARCH, GRAND VIEW RESEARCH, IDC</span>
+            <span>2026 MARKET TRENDS REPORT</span>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const data = [
+            { year: '2024', value: 5.62 },
+            { year: '2025', value: 7.77 },
+            { year: '2026', value: 10.97 },
+            { year: '2030', value: 149.89 }
+        ];
+
+        // Chart Dimensions
+        const margin = { top: 40, right: 20, bottom: 40, left: 60 };
+        const width = 700 - margin.left - margin.right;
+        const height = 400 - margin.top - margin.bottom;
+
+        // Create SVG
+        const svg = d3.select("#marketChart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Scales
+        const x = d3.scaleBand()
+            .range([0, width])
+            .domain(data.map(d => d.year))
+            .padding(0.4);
+
+        const y = d3.scaleLinear()
+            .range([height, 0])
+            .domain([0, 160]);
+
+        // Gridlines
+        const make_y_gridlines = () => d3.axisLeft(y).ticks(5);
+        svg.append("g")
+            .attr("class", "grid")
+            .call(make_y_gridlines()
+                .tickSize(-width)
+                .tickFormat("")
+            );
+
+        // Axes
+        svg.append("g")
+            .attr("transform", `translate(0,${height})`)
+            .attr("class", "axis")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .style("text-anchor", "middle");
+
+        svg.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y).ticks(5).tickFormat(d => "$" + d + "B"));
+
+        // Bars
+        svg.selectAll(".bar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", d => d.year === '2030' ? "bar highlight" : "bar")
+            .attr("x", d => x(d.year))
+            .attr("width", x.bandwidth())
+            .attr("y", d => y(d.value))
+            .attr("height", d => height - y(d.value));
+
+        // Labels
+        svg.selectAll(".label")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "label")
+            .attr("x", d => x(d.year) + x.bandwidth() / 2)
+            .attr("y", d => y(d.value) - 10)
+            .attr("text-anchor", "middle")
+            .text(d => d.value);
+            
+        // Trend Line (Simple path for visual connection)
+        const line = d3.line()
+            .x(d => x(d.year) + x.bandwidth() / 2)
+            .y(d => y(d.value))
+            .curve(d3.curveMonotoneX);
+
+        svg.append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", "#7C4DFF")
+            .attr("stroke-width", 2)
+            .attr("stroke-dasharray", "5,5")
+            .attr("d", line);
+
+    </script>
+</body>
+</html>

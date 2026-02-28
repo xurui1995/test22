@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术范式转变</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; overflow: hidden; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px; /* reduced vertical gaps */
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            color: #00E5FF;
+            font-size: 18px;
+        }
+
+        /* Top Statement */
+        .statement-box {
+            background: rgba(124, 77, 255, 0.1);
+            border-left: 4px solid #7C4DFF;
+            padding: 10px 14px; /* shrink padding */
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            color: #E0E0E0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .statement-box i { color: #00E5FF; }
+
+        /* 3 Columns Layout */
+        .columns-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px; /* reduced */
+        }
+
+        .column-card {
+            border: 1px solid #333;
+            padding: 16px; /* reduced */
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: rgba(255,255,255,0.02);
+            position: relative;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 8px; /* reduced */
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px; /* reduced */
+        }
+
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            background: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00E5FF;
+            font-size: 20px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #FFF;
+        }
+
+        .card-desc {
+            font-size: 15px;
+            line-height: 1.45; /* slightly tightened */
+            color: #CCC;
+            /* removed flex:1 to avoid forced stretching */
+        }
+
+        .card-highlight {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: #7C4DFF;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #333;
+        }
+
+        /* Bottom Data Section */
+        .data-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .data-box {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid #00E5FF;
+            padding: 12px; /* reduced */
+            background: rgba(0, 229, 255, 0.05);
+        }
+
+        .data-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 36px;
+            font-weight: 700;
+            color: #FFF;
+        }
+        .data-label {
+            font-size: 14px;
+            color: #AAA;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .data-sub {
+            font-size: 12px;
+            color: #00E5FF;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        .footer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #222;
+            padding-top: 12px; /* reduced */
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <header>
+            <div class="subtitle">PARADIGM SHIFT</div>
+            <h2>技术范式转变——从"聊天"走向"做事"的智能体时代</h2>
+        </header>
+
+        <div class="statement-box">
+            <i class="fas fa-terminal"></i>
+            <span>2026年共识：以对话为核心的"Chat"范式已告终结，AI竞争全面转向"能办事"的Agent时代。</span>
+        </div>
+
+        <div class="columns-grid">
+            <!-- Column 1 -->
+            <div class="column-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fas fa-robot"></i></div>
+                    <div class="card-title">从聊天到行动</div>
+                </div>
+                <div class="card-desc">
+                    如果说聊天机器人是"会说话的字典"，智能体AI就是"能自主干活的管家"。具备自主性、举一反三和长期记忆三大特征。
+                </div>
+                <div class="card-highlight">
+                    &gt; Autonomous Agents<br>
+                    &gt; Long-term Memory
+                </div>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="column-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fas fa-industry"></i></div>
+                    <div class="card-title">从通用到垂直</div>
+                </div>
+                <div class="card-desc">
+                    通用大模型趋稳后同质化竞争加剧，垂直领域个性化需求成为新核心赛道。企业定制解决方案成为主流。
+                </div>
+                <div class="card-highlight">
+                    &gt; Vertical Integration<br>
+                    &gt; Example: Medical/Enterprise
+                </div>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="column-card">
+                <div class="card-header">
+                    <div class="icon-box"><i class="fas fa-layer-group"></i></div>
+                    <div class="card-title">从单模态到多模态</div>
+                </div>
+                <div class="card-desc">
+                    文本、图像、语音、视频的多模态统一成为主流。Kimi K2.5可调度100个Agent分身并行工作，效率提升3-10倍。
+                </div>
+                <div class="card-highlight">
+                    &gt; Multi-modal Unified<br>
+                    &gt; Parallel Processing
+                </div>
+            </div>
+        </div>
+
+        <div class="data-section">
+            <div class="data-box">
+                <div>
+                    <div class="data-value">$52.6B</div>
+                    <div class="data-sub">CAGR 46.3%</div>
+                </div>
+                <div class="data-label">
+                    Global AI Agent<br>Market Size (2030)
+                </div>
+            </div>
+            <div class="data-box">
+                <div>
+                    <div class="data-value">2.2 Billion</div>
+                    <div class="data-sub">From 28.6M (2025)</div>
+                </div>
+                <div class="data-label">
+                    Active AI Agents<br>Forecast (2030)
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>DATA SOURCE: IDC, ANTHROPIC TRENDS REPORT</span>
+            <span>2026 MARKET TRENDS REPORT</span>
+        </div>
+    </div>
+</body>
+</html>

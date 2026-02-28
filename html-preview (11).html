@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>展望与建议</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; overflow: hidden; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px; /* retain per requirement */
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            padding: 60px 40px; /* keep top padding (60) unchanged; reduce horizontal padding */
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* reduced gap to save vertical space */
+        }
+
+        /* Header */
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 8px; /* reduced from 20 */
+        }
+        h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            color: #00E5FF;
+            font-size: 18px;
+        }
+
+        /* Section Titles */
+        .section-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 8px; /* reduced */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-header i { color: #00E5FF; }
+        .section-header.purple i { color: #7C4DFF; }
+
+        /* Trends Grid (Top) */
+        .trends-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px; /* reduced */
+            align-items: start;
+        }
+
+        .trend-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 2px solid #333;
+            padding: 12px; /* reduced from 20 */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .trend-item:hover { border-left-color: #00E5FF; background: rgba(255, 255, 255, 0.05); }
+
+        .trend-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFF;
+            margin-bottom: 6px; /* reduced */
+        }
+        .trend-desc {
+            font-size: 14px;
+            color: #CCC;
+            line-height: 1.4;
+        }
+        .trend-highlight {
+            color: #00E5FF;
+            font-weight: 700;
+        }
+
+        /* Strategy Section (Bottom) */
+        .strategy-container {
+            margin-top: 4px;
+        }
+        
+        .actions-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px; /* reduced */
+        }
+
+        .action-card {
+            border: 1px solid #7C4DFF;
+            background: rgba(124, 77, 255, 0.05);
+            padding: 12px; /* reduced from 25 */
+            position: relative;
+        }
+        
+        .action-icon {
+            position: absolute;
+            top: -12px; /* slightly adjusted */
+            right: 14px;
+            width: 30px;
+            height: 30px;
+            background: #121212;
+            border: 1px solid #7C4DFF;
+            color: #7C4DFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .action-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+            font-weight: 700;
+            color: #FFF;
+            margin-bottom: 8px; /* reduced */
+            text-transform: uppercase;
+        }
+
+        .action-desc {
+            font-size: 14px;
+            color: #CCC;
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        .footer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #555;
+            border-top: 1px solid #222;
+            padding-top: 8px; /* reduced from 20 */
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <header>
+            <div class="subtitle">OUTLOOK & RECOMMENDATIONS</div>
+            <h2>展望与建议——把握大模型时代的战略机遇</h2>
+        </header>
+
+        <!-- Trends Section -->
+        <div>
+            <div class="section-header">
+                <i class="fas fa-binoculars"></i>
+                <span>FUTURE TRENDS (2026-2030)</span>
+            </div>
+            <div class="trends-grid">
+                <div class="trend-item">
+                    <div class="trend-title">01. 市场持续高速增长</div>
+                    <div class="trend-desc">全球LLM市场到2030年预计突破 <span class="trend-highlight">千亿美元</span>，中国将成为重要增长引擎。</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-title">02. AI Agent 爆发</div>
+                    <div class="trend-desc">智能体将是企业的数字劳动力，预计2030年活跃Agent将达 <span class="trend-highlight">22亿</span>。</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-title">03. 中美竞争新阶段</div>
+                    <div class="trend-desc">中国凭借 <span class="trend-highlight">开源生态</span> 与成本优势，正在形成集群式竞争力。</div>
+                </div>
+                <div class="trend-item">
+                    <div class="trend-title">04. 垂直行业深度渗透</div>
+                    <div class="trend-desc">应用层创新为主战场，行业Know‑how与 <span class="trend-highlight">高质量数据</span> 成为壁垒。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategy Section -->
+        <div class="strategy-container">
+            <div class="section-header purple">
+                <i class="fas fa-chess-knight"></i>
+                <span>STRATEGIC ACTIONS</span>
+            </div>
+            <div class="actions-row">
+                <div class="action-card">
+                    <div class="action-icon"><i class="fas fa-robot"></i></div>
+                    <div class="action-title">Agent 能力建设</div>
+                    <div class="action-desc">构建智能体与人机协同工作流，提升自动化与效率。</div>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon"><i class="fas fa-bullseye"></i></div>
+                    <div class="action-title">垂直场景深耕</div>
+                    <div class="action-desc">聚焦细分领域，解决真实痛点，打造差异化优势。</div>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon"><i class="fas fa-database"></i></div>
+                    <div class="action-title">数据资产积累</div>
+                    <div class="action-desc">建立高质量行业数据集，将经验转化为可用知识资产。</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span>MANUS INTELLIGENCE</span>
+            <span>2026 MARKET TRENDS REPORT</span>
+        </div>
+    </div>
+</body>
+</html>
