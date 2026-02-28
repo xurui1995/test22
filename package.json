@@ -1,0 +1,29 @@
+{
+  "name": "test22",
+  "version": "1.0.0",
+  "description": "HTML slide to PowerPoint (PPTX) converter using headless Chromium",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "convert": "node html2ppt.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xurui1995/test22.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/xurui1995/test22/issues"
+  },
+  "homepage": "https://github.com/xurui1995/test22#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.2.0",
+    "chart.js": "^4.5.1",
+    "d3": "^7.9.0",
+    "pptxgenjs": "^4.0.1",
+    "puppeteer-core": "^24.37.5"
+  }
+}
